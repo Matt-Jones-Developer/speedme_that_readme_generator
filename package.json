@@ -1,0 +1,28 @@
+{
+  "name": "readme_builder",
+  "version": "1.0.0",
+  "description": "CLI program for creating readme.md files dynamically",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Matt-Jones-Developer/readme_builder.git"
+  },
+  "keywords": [
+    "readme",
+    "builder"
+  ],
+  "author": "M Jones",
+  "license": "SEE LICENSE IN LICENSE",
+  "bugs": {
+    "url": "https://github.com/Matt-Jones-Developer/readme_builder/issues"
+  },
+  "homepage": "https://github.com/Matt-Jones-Developer/readme_builder#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "inquirer": "^8.2.5",
+    "node": "^8.0.0"
+  }
+}

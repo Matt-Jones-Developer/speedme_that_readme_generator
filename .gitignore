@@ -102,3 +102,7 @@ dist
 
 # TernJS port file
 .tern-port
+
+# Hide DS_Store
+.DS_Store/
+**/.DS_Store
