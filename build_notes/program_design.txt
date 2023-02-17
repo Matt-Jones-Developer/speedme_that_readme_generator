@@ -7,7 +7,7 @@
 * Adding all section functions to a master async function for improved readability and performance.
 
 
-Program walkthrough:
+Program walk-through:
 
     - [DONE] Type selector (‘simple’ or ‘professional’)
     - [DONE] IF simple -> go to addContent() -> ask for the title and description only -> render file

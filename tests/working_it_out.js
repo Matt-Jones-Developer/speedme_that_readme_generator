@@ -113,6 +113,9 @@ const setUpReadme = () =>
 // adv. select the table of contents options via checkboxes?
 // language logo checkbox - each logo dynamically added if selected!
 
+
+// !! MEET MVP FIRST - BEFORE ALL THIS !!
+
 const generateReadme = (answers) =>
 
   `

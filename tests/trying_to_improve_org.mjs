@@ -12,20 +12,9 @@ import util from 'util';
 //   message: 'Enter a description'
 // });
 
-
 // if breaking this down to util modules - import files like so:
 // import { generateMarkdown } from './utils/generateMarkdown.js';
 // import generateMarkdown from './utils/generateMarkdown.js';
-// import { generateMarkdown } from './utils/generateMarkdown.js';
-
-// license links 
-// const licenseLinks = [
-//   {
-//     'Apache 2.0': 'https://choosealicense.com/licenses/apache-2.0/' ,
-//     'GNU AGPL v3.0': 'https://choosealicense.com/licenses/agpl-3.0/',
-//     'MIT': 'https://choosealicense.com/licenses/mit/',
-//   }
-// ]
 
 // import pkg from './utils/generateMarkdown.js';
 // const { generateMarkdown } = pkg;
@@ -118,16 +107,16 @@ const generateTableOfContents = (chosenHeadings) => {
 
 // function that handles the license and badge
 const generateLicenseSection = (license, chosenLicense) => {
+
   return `
-    ## License\n
     This project is licensed under the terms of the ${license} license.
     For more information, please visit this link: ${chosenLicense}.
   `;
 };
 
 
-// grab all the inputs from the user 
-const setupReadme = async (chosenHeadings = []) => {
+// setup license and badges
+const setupLicense = async () => {
 
   const licenses = [
     { name: 'Apache 2.0', value: 'Apache 2.0' },
@@ -141,7 +130,37 @@ const setupReadme = async (chosenHeadings = []) => {
     'MIT': 'https://choosealicense.com/licenses/mit/',
   };
 
-  const { title, description, github, license } = await inquirer.prompt([
+  const { license } = await inquirer.prompt([
+    {
+      type: 'list',
+      name: 'license',
+      message: 'Please choose a license type:',
+      choices: licenses,
+      // press enter for default
+      default: 'Apache 2.0'
+    },
+  ]);
+
+  // define the license url
+  // const chosenLicense = license;
+  // const licenseLink = licenseLinks[license];
+  const chosenLicense = licenseLinks[license];
+  console.log('user chose license: ', chosenLicense)
+
+  // Generate the license section for the README
+  // const licenseSection = generateLicenseSection(chosenLicense, licenseLink);
+
+  return {
+    licenses,
+    licenseLinks,
+    chosenLicense
+  };
+}
+
+// grab all the inputs from the user 
+const setupReadme = async (chosenHeadings = []) => {
+
+  const { title, description, github } = await inquirer.prompt([
     {
       type: 'input',
       name: 'title',
@@ -156,35 +175,26 @@ const setupReadme = async (chosenHeadings = []) => {
       type: 'input',
       name: 'github',
       message: 'What is your github repo URL?'
-    },
-    {
-      type: 'list',
-      name: 'license',
-      message: 'Please choose a license type:',
-      choices: licenses,
-      // press enter for default
-      default: 'Apache 2.0'
-    },
+    }
   ]);
 
   console.info('Here is a summary of the project selections:',
-    `\n${title}.\n ${description}.\n ${github}\n ${license}\n`);
+    `\n${title}.\n ${description}.\n ${github}\n`);
 
-  // define the license url
-  const chosenLicense = licenseLinks[license];
-  console.log('user chose license: ', chosenLicense)
+  // call license setup
+  setupLicense()
 
-  // send the chosenLicense url link to generateMarkdown
-  // output to folder 
-  const outputDir = './output';
-  // return chosenLicense;
 
-  async function generateAndWriteReadme() {
+
+  // generate and write to file
+  const generateAndWriteReadme = async ({ title, description, github, license, chosenLicense, chosenHeadings }) => {
     try {
       // if using util files import change this line to:
+      // const { title, description, github, license } = await inquirer.prompt(questions); // shorthand for above if you put all args into same section!
+      // const chosenLicense = licenseLinks[license];
       const readmeContent = generateMarkdown({ title, description, github, license, chosenLicense, chosenHeadings });
-      // const readmeContent = generateReadme({ title, description, github, license, chosenHeadings });
-
+      // output to folder 
+      const outputDir = './output';
       // Create the 'output' directory if it doesn't exist
       if (!fs.existsSync(outputDir)) {
         fs.mkdirSync(outputDir);
@@ -199,7 +209,7 @@ const setupReadme = async (chosenHeadings = []) => {
     }
   }
 
-  generateAndWriteReadme();
+  generateAndWriteReadme({ title, description, github });
 }
 
 // thanks google for the .replace(/\n/g, '\n  ') !
@@ -225,6 +235,7 @@ const generateMarkdown = ({ title, description, github, license, chosenLicense, 
 
       ${tocSection}
 
+      ## License\n
       ${generateLicenseSection(license, chosenLicense)}
 
       ## Questions\n
