@@ -106,3 +106,6 @@ dist
 # Hide DS_Store
 .DS_Store/
 **/.DS_Store
+
+# Hide vscode
+.vscode

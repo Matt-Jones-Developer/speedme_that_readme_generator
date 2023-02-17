@@ -1,0 +1,67 @@
+// code structure 
+
+* I want to keep the code as organised and maintainable as possible.
+
+* async await over .then
+
+* Adding all section functions to a master async function for improved readability and performance.
+
+
+Program walkthrough:
+
+    - [DONE] Type selector (‘simple’ or ‘professional’)
+    - [DONE] IF simple -> go to addContent() -> ask for the title and description only -> render file
+
+    - [DONE] IF professional -> go to createHeadings() -> allow user to specify each heading they want 
+      - [DONE] these headings will be set to a 'Table of Contents' 
+    - [ ] BADGES -> choose from list -> render to top of the page
+    - [ ] HEADER IMAGE -> set the path, render it
+        - [ ] Headings: (if selected)
+
+        - [DONE] Title
+        - [ ] Logo image (set path -> render logo
+
+        - [DONE] Description (summary)
+            - [ ] Title Tagline
+            - [ ] Summary
+            - [ ] Anchors (that will link to various sections ‘Explore the docs’ ‘View Project’ ‘Report a Bug’ ‘Request Features’)
+
+        - [ ] Table of Contents -> which will need a conditional to select from the rest of these headings!
+            - [ ] All inside a <details><summary>Table of Contents</summary><ol><li><a href=“#about></a>
+                - [ ] Product screenshot (main image)
+                - [ ] About The Project (full description)
+
+            - [ ] Overview (Top Feature listing ‘ul >li’)
+            - [ ] Built With (languages and frameworks used)
+
+            - [ ] User Story
+                - [ ] Motivation
+                - [ ] Purpose
+                - [ ] Challenges
+                - [ ] USP’s
+
+            - [ ] The Product (Screenshots)
+                - [ ] Product Screenshots (more 2-6 more images - user specified) - how many screenshots would you like in this section - please provide the pathname etc
+
+            - [ ] Prerequisites (What you need to install first to use it)
+            - [ ] Installation (How to install it)
+            - [ ] Getting Started (How to guide)
+
+            - [ ] Usage (What should Usage contain?)
+            - [ ] UX/UI Design (if applicable)
+                - [ ] UX and UI notes (if required)
+                - [ ] responsive design screenshots
+                - [ ] Console screenshots 
+                - [ ] Video link (if required)
+
+            - [ ] Roadmap - next phases for the project
+            - [ ] Contributing 
+            - [ ] License
+            - [ ] Contact
+            - [ ] Acknowledgments 
+            - [ ] Project links (repo and deployment)
+
+        - [ ] Markdown links, shields, images, logos, screenshots, header, logo section (hidden section)
+
+        
+
