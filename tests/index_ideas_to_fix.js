@@ -346,6 +346,10 @@ const generateQuestionsSection = (answers) => {
 // grab all the inputs from the user 
 const setupReadme = async (chosenHeadings = []) => {
 
+  // switch for polite update
+  // let notify = false;
+  // console.log('notify:', notify)
+
   // define license and badges arrays and objects
   const licenses = [
     { name: 'Apache 2.0', value: 'Apache 2.0' },
@@ -464,11 +468,48 @@ const setupReadme = async (chosenHeadings = []) => {
       when: (answers) => answers.methods.includes('Instagram')
     },
 
+    // notify = true,
+    // console.log('notify:', notify)
   ];
+
+  // if (!notify) {
+  //   // notify SUCCESS
+  //   console.log('\n📟💬 Polite Notice:\n --> Please answer the following base questions:\n')
+  // } else {
+  //   console.log('📟💬 Polite Notice:\nGreat! All your answers have been stored. ✅ \n')
+  // }
 
   // init baseAnswers, chosenLicense and chosenBadge
 
   const answers = await inquirer.prompt(baseQuestions);
+  // const methodsString = answers.methods.map(method => `\n\t${method}:`).join('');
+
+  // console.log('\n📟💬 Here is a summary of your answers:\n\n', JSON.stringify(answers, null, 2)
+
+  //   // Remove quotes and punctuation
+  //   .replace(/[{"},\[\]]/g, '')
+  //   // Capitalise headings
+  //   .replace(/(^\w|\s\w)/g, (match) => match.toUpperCase())
+  //   // Replace array brackets with "Methods:" heading and individual key-value pairs
+  //   .replace(/Methods:\s\[(.*)\]/g, `Contact Options:${methodsString}`)
+  //   // Convert Email to lowercase
+  //   .replace(/(^|[^\w])(email)([^\w]|$)/g, '$1email$3') // lowercase 'email'
+  // );
+
+  // // fix capitalise issues: TODO
+  // const answers = await inquirer.prompt(questions);
+  // const formattedAnswers = JSON.stringify(answers, (key, value) => {
+  //   // If the key is "email" and the value matches an email ending with ".io" or ".com",
+  //   // return the value in lowercase. Otherwise, capitalize the first letter of the value.
+  //   if (key === "email" && value.match(/@[a-z]+\.(io|com)$/i)) {
+  //     return value.toLowerCase();
+  //   } else {
+  //     return value.charAt(0).toUpperCase() + value.slice(1);
+  //   }
+  // }, 2);
+  // console.log(formattedAnswers);
+
+
 
   // console.log(answers.username, answers.email, answers.github) // all accessing fine
 
@@ -540,6 +581,80 @@ const generateMarkdown = ({ answers, chosenLicense, chosenBadge, chosenHeadings 
         `;
 
     }
+    // works - until other headings come after installation heading
+    // const installationIndex = chosenHeadings.indexOf('Installation');
+    // console.log('instIndex:',installationIndex)
+    // if (installationIndex >= 0) {
+    //   installation = `
+    //     ${generateInstallation(answers)}
+    //   `;
+    //   chosenHeadings.splice(installationIndex, 1);
+    // }
+    // plan b - use slice, splice, lastindexof and concat
+    // const installationIndex = chosenHeadings.indexOf('Installation');
+    // // console.log('instIndex:', installationIndex)
+    // if (installationIndex >= 0) {
+    //   installation = `
+    //     ${generateInstallation(answers)}
+    //   `;
+    //   const before = chosenHeadings.slice(0, installationIndex);
+    //   // console.log('beforeIndex:', before)
+    //   const after = chosenHeadings.slice(installationIndex + 1);
+    //   // console.log('afterIndex:', after)
+    //   const lastHeadingIndex = after[0];
+    //   // console.log('lastheadingIndex:', lastHeadingIndex)
+    //   before.splice(lastHeadingIndex - 1, 0, `\n${installation}\n`);
+    //   chosenHeadings = before.concat(after);
+
+    // }
+
+    // const installationIndex = chosenHeadings.indexOf('Installation');
+    // console.log('instIndex:', installationIndex)
+    // if (installationIndex >= 0) {
+    //   installation = generateInstallation(answers);
+    //   const before = chosenHeadings.slice(0, installationIndex);
+    //   console.log('beforeIndex:', before)
+    //   const after = chosenHeadings.slice(installationIndex + 1);
+    //   console.log('afterIndex:', after)
+    //   const lastHeadingIndex = after.findIndex(heading => heading.startsWith('###'));
+    //   const insertIndex = installationIndex + 1 + lastHeadingIndex;
+    //   chosenHeadings.splice(insertIndex, 0, installation);
+    // }
+
+    // const installationIndex = chosenHeadings.indexOf('Installation');
+    // if (installationIndex >= 0) {
+    //   installation = generateInstallation(answers);
+    //   const before = chosenHeadings.slice(0, installationIndex);
+    //   const after = chosenHeadings.slice(installationIndex);
+    //   const afterIndex = after.findIndex(heading => heading.startsWith('### '));
+    //   if (afterIndex >= 0) {
+    //     after.splice(afterIndex, 0, `## Installation`);
+    //     chosenHeadings = before.concat(after);
+    //   } else {
+    //     chosenHeadings = before.concat([`## Installation`], after);
+    //   }
+    // }
+
+    // const installationIndex = chosenHeadings.indexOf('Installation');
+    // console.log('instIndex:', installationIndex)
+    // if (installationIndex >= 0) {
+    //   const installation = generateInstallation(answers);
+    //   chosenHeadings.splice(installationIndex, 1);
+    //   const before = chosenHeadings.slice(0, installationIndex);
+    //   console.log('before:', before)
+    //   const after = chosenHeadings.slice(installationIndex);
+    //   console.log('after:', after)
+    //   const afterIndex = after.findIndex((heading) => heading.startsWith('### '));
+    //   console.log('afterIndex:', after)
+    //   if (afterIndex >= 0) {
+    //     after.splice(afterIndex, 0, '### Installation');
+    //   } else {
+    //     after.push('### Installation');
+    //   }
+    //   chosenHeadings = [...before, ...after];
+    // }
+
+    // how to insert a function call in between 2 indexes?
 
   } catch (error) {
     console.error('❗ Error generating Table of Contents section (user chose not to): ', error);

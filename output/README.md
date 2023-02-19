@@ -1,9 +1,8 @@
 
 
 
-
 <div align="center">
-	<img src="https://img.shields.io/badge/license-GNU%20AGPL%20v3.0-red.svg" alt="license-badge-image">
+	<img src="https://img.shields.io/badge/License-Apache%202.0-orange.svg" alt="license-badge-image">
 </div>  
 <br>
 
@@ -87,21 +86,21 @@ a
 #
 ## License
 
-This project is licensed under the terms of the GNU AGPL v3.0 license.
+This project is licensed under the terms of the Apache 2.0 license.
 
-For more information, please visit this link: https://choosealicense.com/licenses/agpl-3.0/
+For more information, please visit this link: https://choosealicense.com/licenses/apache-2.0/
 
 
 
 #
 ## Questions
 
-For questions or concerns, please contact [a](a) via Github.
+For questions or concerns, please contact [a](a) via Github :octocat:.
 ###  Other contacts:
 
-You can also reach me via the following:
+You can also reach me via the following: 👻💬
 
-[Email](a), [LinkedIn](a), [Twitter](a), [Slack](a), [Instagram](a)
+📪 [Email](a) ·  
 
 
 
