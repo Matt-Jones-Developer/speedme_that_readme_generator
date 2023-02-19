@@ -2,6 +2,8 @@
 
 * I want to keep the code as organised and maintainable as possible.
 
+  // code should be separated into js files [TODO]
+
 * async await over .then
 
 * Adding all section functions to a master async function for improved readability and performance.
