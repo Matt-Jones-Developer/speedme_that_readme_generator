@@ -1,91 +1,169 @@
-# Module 11 Challenge: Professional README Generator
-
-## Your Task
-
-When creating an open source project on GitHub, it’s important to have a high-quality README for the app. This should include what the app is for, how to use the app, how to install it, how to report issues, and how to make contributions—this last part increases the likelihood that other developers will contribute to the success of the project. 
-
-You can quickly and easily create a README file by using a command-line application to generate one. This allows the project creator to devote more time to working on the project.
-
-Your task is to create a command-line application that dynamically generates a professional README.md file from a user's input using the [Inquirer package](https://www.npmjs.com/package/inquirer). Review the [Good README Guide](../../01-HTML-Git-CSS/04-Important/Good-README-Guide/README.md) as a reminder of everything that a high-quality, professional README should contain. 
-
-The application will be invoked by using the following command:
-
-```bash
-node index.js
-```
-
-## User Story
-
-* As a developer, I want a README generator so that I can quickly create a professional README for a new project
-
-## Acceptance Criteria
-
-* Create a command-line application that accepts user input.
-  * When a user is prompted for information about the application repository then a high-quality, professional README.md is generated with:
-    * The title of my project 
-    * Sections entitled:
-      * Description 
-      * Table of Contents 
-      * Installation 
-      * Usage 
-      * License 
-      * Contributing 
-      * Tests 
-      * Questions
-    * When a user enters the project title then it is displayed as the title of the README
-    * When a user enters a description, installation instructions, usage information, contribution guidelines, and test instructions then this information is added to the sections of the README entitled Description, Installation, Usage, Contributing, and Tests
-    * When a user chooses a license for their application from a list of options then a badge for that license is added near the top of the README and a notice is added to the section of the README entitled **License** that explains which license the application is covered under
-    * When a user enters their GitHub username then this is added to the section of the README entitled Questions, with a link to their GitHub profile
-    * When a user enters their email address then this is added to the section of the README entitled Questions, with instructions on how to reach them with additional questions
-    * When a user clicks on the links in the **Table of Contents** then they are taken to the corresponding section of the README
-
-## Getting Started
-
-Here are some guidelines to help you get started:
-
-* Create a `.gitignore` file and include `node_modules/` and `.DS_Store/` so that your `node_modules` directory isn't tracked or uploaded to GitHub. Be sure to create your `.gitignore` file before installing any npm dependencies.
-
-* Make sure that your repo includes a `package.json` with the required dependencies. You can create one by running `npm init` when you first set up the project, before installing any dependencies.
-
-## Grading Requirements
-
-This Challenge is graded based on the following criteria: 
-
-### Deliverables: 20%
-
-* A sample README generated using the application must be submitted.
-
-* Your GitHub repository containing your application code.
-
-### Technical Acceptance Criteria: 55%
-
-* Satisfies all of the above acceptance criteria plus the following:
-
-	* Uses the [Inquirer package](https://www.npmjs.com/package/inquirer).
-
-### Repository Quality: 25%
-
-* Repository has a unique name.
-
-* Repository follows best practices for file structure and naming conventions.
-
-* Repository follows best practices for class/id naming conventions, indentation, quality comments, etc.
-
-* Repository contains multiple descriptive commit messages.
-
-* Repository contains a high-quality README with description and a link to walkthrough video.
 
 
-## Review
 
-You are required to submit the following for review:
+<span style="display:block" align="center" class="shields">
 
-* A walkthrough video demonstrating the functionality of the application.
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![License][license-shield]][license-url]
+[![LinkedIn][linkedin-shield]][linkedin-url]
 
-* A sample README.md file for a project repository generated using your application
+</span>
 
-* The URL of the GitHub repository, with a unique name and a README describing the project
 
----
+<!-- Readme top-->
+<a name="readme-top"></a>
 
-© 2023 edX Boot Camps LLC. Confidential and Proprietary. All Rights Reserved.
+
+
+<div align="center">
+	<img src="./assets/images/header.png" alt="header-image" width="800" height="200">
+</div>
+<br>
+
+
+# SPEEDME that README generator
+
+
+<div align="center">
+<h3>"SPEEDME THAT README!"</h3>
+<a href="https://github.com/Matt-Jones-Developer/speedme_that_readme_generator//"><strong>Explore the docs »</strong></a>
+<br />
+<br />
+<a href="https://github.com/Matt-Jones-Developer/speedme_that_readme_generator//">View Project</a>
+·
+<a href="https://github.com/Matt-Jones-Developer/speedme_that_readme_generator//issues">Report Bug</a>
+·
+<a href="https://github.com/Matt-Jones-Developer/speedme_that_readme_generator//issues">Request Feature</a>
+·
+<a href="https://github.com/matt-jones-developer?tab=repositories">Check out my work</a>
+·
+</div>
+<br>
+
+#
+
+## Table of Contents
+
+* [Description](#description)
+* [Installation](#installation)
+* [Usage](#usage)
+* [Tests](#tests)
+* [Contributing](#contributing)
+* [License](#license)
+* [Questions](#questions)
+#
+
+## Project Summary
+
+SPEEDME is the ultimate README.md generator.  Load up the CLI program, ask a few questions and let it generate a professional looking readme in no time. Featuring both Lightweight and Professional modes, you can select the level of detail you want to have.
+
+### Motivation
+To make an advanced auto generating readme.  Using markdown and HTML, I wanted to make sure it was as good as my other readme files.
+
+### Challenges
+Many.  I made it too complicated initially before making MVP and had to back track quite a bit.  I had grand visions of modularising my scripts, which was working well until I had too many other commitments so I had to stick with the original single script version. I asked 2 TA's about my pro version code and they said they couldn't fault it.  I guess it's just one of those bugs.  I still have the 'Professional' version  in the pipeline, so will be updating this once the bug is fixed.  Lessons learned!
+
+### Unique Selling Points
+I think it's an attractive, enjoyable program that produces a great looking, very professional readme.  The emoji's make it cuter and the actual content generated is pretty close to my current default readme's - the professional mode offers way more control over which headings you want and way more screenshots, UI design wireframe shots and more. 
+
+#
+
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+## Installation
+
+To install and use this CLI program you must first head to your terminal:  type 'npm install' to download the latest version of NPM.  Next, you'll need want to initialise npm: 'npm init -y' or without -y if you want to specify you're own settings.  Next up is node.js.  Install by typing 'npm install node' - you'll want to use version 19.1 on an M1 Macbook though; I ran into issues with 19.6.  Finally install dependencies: npm i inquirer.  Lastly you can run the program by going to the root folder and typing 'node index.js' - if you run into issues you'll need to check npm and check npm ls to make sure you have all the correct dependencies!
+
+
+## Usage
+
+Create a pro readme in minutes - no need to worry about formatting, the auto capitalise function takes care of that - add all images including header, logo and screenshots to ..assets/images.  Done! Here is a screenshot of the program running. The pro version will have multiple screenshots its a WIP.
+
+
+![Product Screenshot](./assets/images/screenshot.png)
+
+## Tests
+
+If you want to test the app you could run the debugger via vscode - we havent covered official unit testing yet so I cannot really provide much info here.
+
+
+## Contributing
+
+The project IS open source.  Feel free to clone and re-use or improve it, but please do respect the rules of my license and accredit your readme with my name and github username/url.
+
+
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+
+## SPEEDME that README generator is an Open Source Project:
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](code_of_conduct.md)
+
+### Code of Conduct:
+Learn more about open source code of conduct:
+[Contributor Covenant](https://www.contributor-covenant.org/)
+
+Read the full code of conduct here:
+[English (HTML version)](https://www.contributor-covenant.org/version/2/1/code_of_conduct/)
+
+### Attribution
+Contributor Covenant is included in this open source project.  Read the [license.](https://github.com/EthicalSource/contributor_covenant/blob/release/LICENSE.md)
+;
+
+
+
+#
+## License
+
+This project is licensed under the terms of the GNU AGPL v3.0 license.
+
+For more information, please visit this link: [GNU AGPL v3.0](https://choosealicense.com/licenses/agpl-3.0/)
+
+
+
+#
+## Questions
+
+For questions or concerns, please contact [matt-jones-developer](https://github.com/Matt-Jones-Developer/speedme_that_readme_generator/) via Github.
+###  Other contacts:
+
+You can also reach me via the following: 👻💬
+
+📪 [Email](me@gamail) · [LinkedIn](https://www.linkedin.com/in/matt-jones-zx81) · [Twitter](glitchy) · [Slack](mattjones) · [Instagram](glitchy) 
+
+
+
+[stars-shield]: https://img.shields.io/github/stars/matt-jones-developer/speedme_that_readme_generator.svg?style=for-the-badge
+[stars-url]: https://github.com/Matt-Jones-Developer/speedme_that_readme_generator//stargazer
+[issues-shield]: https://img.shields.io/github/issues/matt-jones-developer/speedme_that_readme_generator.svg?style=for-the-badge
+[issues-url]: https://github.com/Matt-Jones-Developer/speedme_that_readme_generator//issues
+[license-shield]: https://img.shields.io/badge/license-GNU%20AGPL%20v3.0-red.svg
+[license-url]: https://choosealicense.com/licenses/agpl-3.0/
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://www.linkedin.com/in/matt-jones-zx81
+
+
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+#
+
+
+
+## Deployment & Repo links:
+
+Project Repo Link: [https://github.com/Matt-Jones-Developer/speedme_that_readme_generator/](https://github.com/Matt-Jones-Developer/speedme_that_readme_generator/)
+
+Deployed Project Link: [https://github.com/Matt-Jones-Developer/speedme_that_readme_generator/](https://matt-jones-developer.github.io/speedme_that_readme_generator/)
+
+## The VIDEO LINK
+
+See the app being fully tested here: 
+[Video Link](video_link_here)
+
+
