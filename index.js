@@ -14,7 +14,7 @@ async function run() {
     {
       type: 'list',
       name: 'setup',
-      message: '\n📟💬 Welcome to 🔥 SPEEDME! 🔥 The Ultimate README generator. 👋\n\n📟💬 Please select your type of readme:',
+      message: '\n📟💬 Welcome to 🔥 SPEEDME that README! 🔥 The Ultimate README.md generator. 👋\n\n📟💬 Please select your type of readme:',
       choices: ['Lightweight', 'Professional'],
       default: 'Lightweight'
     }
@@ -93,21 +93,30 @@ function findScreenshots() {
 
 // html function - WIP
 function genTop() {
-  return `
+  return`
   <!-- Readme top-->
   <a name="readme-top"></a>
   `
 };
 
 function backToTop() {
-  return `
+  return`
   <p align="right">(<a href="#readme-top">back to top</a>)</p>
   `
 };
 
+// function genTitle(answers) {
+//   return`
+//   <div align="center">
+//     ${answers.title}
+//   </div>
+//   `
+// };
+
 function genRepoMap(answers) {
+  
   // generates a repo map of various links to visit
-  return `
+  return`
   <div align="center">
     <h3>"SPEEDME THAT README!"</h3>
     <a href="${answers.github}/"><strong>Explore the docs »</strong></a>
@@ -130,7 +139,7 @@ function genRepoMap(answers) {
 
 function generateHeader() {
 
-  return `
+  return`
   <div align="center">
   \t<img src="../assets/images/header.png" alt="header-image" width="800" height="200">
   </div>
@@ -149,7 +158,7 @@ const generateToC = (headingsMVP) => {
 
 // function that handles the license section
 const generateLicenseSection = (license, chosenLicense) => {
-  return `
+  return`
     #
     ## License\n
     This project is licensed under the terms of the ${license} license.\n
@@ -169,7 +178,7 @@ const generateBadgesSection = (answers, chosenBadge) => {
   //   <br>
   // `;
   // add additional badges (for pro)
-  return `
+  return`
   <span style="display:block" align="center" class="shields">
 
   [![Stargazers][stars-shield]][stars-url]
@@ -184,7 +193,7 @@ const generateBadgesSection = (answers, chosenBadge) => {
 const generateOpenSourceSection = (answers) => {
   // basic contribution notice (included)
   // if opensource (add covenant info)
-  return `
+  return`
     ## ${capitalise(answers.title)} is an Open Source Project:
     [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](code_of_conduct.md)\n
     ### Code of Conduct:
@@ -211,7 +220,7 @@ const generateQuestionsSection = (answers) => {
   const otherMethods = chosenMethods.filter(method => method.url && method.name);
   const otherMethodsLinks = otherMethods.map(method => `[${method.name}](${method.url})`).join(' · ');
 
-  return `
+  return`
   #
   ## Questions\n
   For questions or concerns, please contact [${answers.username}](${answers.github}) via Github.
@@ -237,7 +246,7 @@ function hiddenMarkdown(answers, chosenBadge, chosenLicense) {
 };
 
 function genProjectLinks(answers) {
-  return `
+  return`
 
   ## Deployment & Repo links:
   
@@ -568,7 +577,7 @@ async function generateAndWriteReadme(headingsMVP, answers, chosenLicense, chose
     await writeFileAsync(`${outputDir}/README.md`, readmeContent);
 
     // confirmation 
-    console.log('\n💥WOOHOO!💥');
+    console.log('\n💥 WOOHOO! 💥');
     console.log('📟💬 SPEED_ME created your README! 🎉🎉\n');
     console.log('📟💬 You can access it via the "output" folder within this repo.\nIf you enjoyed using this program, please let me know!\n');
     console.log('📟💬 This program will now terminate: GOOD DAY!\n')
@@ -580,7 +589,7 @@ async function generateAndWriteReadme(headingsMVP, answers, chosenLicense, chose
 // [TODO] The generateMarkdown module - must add finalAnswers/proAnswers
 
 const generateMarkdown = ({ headingsMVP, answers, chosenLicense, chosenBadge }) => { // chosenHeadings = [], finalAnswers = {} 
-  // console.log('opensource?: ',answers.opensource)
+
   // for MVP
   let tocSection = generateToC(headingsMVP);
   let openSource = '';
@@ -594,36 +603,26 @@ const generateMarkdown = ({ headingsMVP, answers, chosenLicense, chosenBadge }) 
   if (answers.header === 'yes') {
     includeHeader = `${generateHeader()}`
   }
-  // usageScreenshot = '';
-  // if (answers.screenshot === 'yes') {
-  //   usageScreenshot = `
-  //   // ${ getFilePath(answers) }`;
-  //   // console.log(answers.screenshot, usageScreenshot)
-  // }
 
   let screenshot = '';
-  let addScreenshots = '';
   if (answers.screenshot === 'yes') {
     screenshot = `
     ![Product Screenshot](../assets/images/screenshot.png)`;
-    // console.log(answers.screenshot, usageScreenshot)
-
-    // a function call that adds multiple screenshots here - based iterating through *.png's in folder
-    // addScreenshots = `
-    // ${ findScreenshots() }
-    // `
-    // console.log(addScreenshots) // undefined WIP
   }
 
   // if file path contains filename ?
 
   return `
-    ${genTop()}
+    
     ${generateBadgesSection(answers, chosenBadge)}
+    ${genTop()}
+
     ${includeHeader}
 
-    # ${answers.title.split(' ').map(capitalise).join(' ')}
+    # ${answers.title}
+
     ${genRepoMap(answers)}
+    #
 
     ## Table of Contents\n
     ${tocSection.replace(/\n/g, '\n  ')}
@@ -665,6 +664,7 @@ const generateMarkdown = ({ headingsMVP, answers, chosenLicense, chosenBadge }) 
     ${hiddenMarkdown(answers, chosenBadge, chosenLicense)}
 
     ${backToTop()}
+    #
 
     ${genProjectLinks(answers)}
     
