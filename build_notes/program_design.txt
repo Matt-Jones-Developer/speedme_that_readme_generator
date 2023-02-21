@@ -65,5 +65,66 @@ Program walk-through:
 
         - [ ] Markdown links, shields, images, logos, screenshots, header, logo section (hidden section)
 
-        
+username:
+         matt-jones-developer
+repo:    https://github.com/Matt-Jones-Developer/speedme_ultimate_readme_generator/
 
+deploy:   https://matt-jones-developer.github.io/speedme_ultimate_readme_generator/
+
+linkedIn: https://www.linkedin.com/in/matt-jones-zx81
+
+title: SPEEDME Ultimate README generator
+
+description:
+
+SPEEDME is the ultimate README.md generator.  Load up the CLI program, ask a few questions and let it generate a professional looking readme in no time. Featuring both Lightweight and Professional modes, you can select the level of detail you want to have.
+
+motivation:
+
+to make an advanced auto generating readme.  Using markdown and HTML, I wanted to make sure it was as good as my other readme files.
+
+challenges:
+
+Many.  I made it too complicated initially before making MVP and had to back track quite a bit.  I had grand visions of modularising my scripts, which was working well until I had too many other commitments so I had to stick with the original single script version. I asked 2 TA's about my pro version code and they said they couldn't fault it.  I guess it's just one of those bugs.  I still have the 'Professional' version  in the pipeline, so will be updating this once the bug is fixed.  Lessons learned!
+
+USP's:
+
+I think it's an attractive, enjoyable program that produces a great looking, very professional readme.  The emoji's make it cuter and the actual content generated is pretty close to my current default readme's - the professional mode offers way more control over which headings you want and way more screenshots, UI design wireframe shots and more. 
+
+installation:
+
+to install and use this CLI program you must first head to your terminal:  type 'npm install' to download the latest version of NPM.  Next, you'll need want to initialise npm: 'npm init -y' or without -y if you want to specify you're own settings.  Next up is node.js.  Install by typing 'npm install node' - you'll want to use version 19.1 on an M1 Macbook though; I ran into issues with 19.6.  Finally install dependencies: npm i inquirer.  Lastly you can run the program by going to the root folder and typing 'node index.js' - if you run into issues you'll need to check npm and check npm ls to make sure you have all the correct dependencies!
+
+features and usage:
+
+create a pro readme in minutes - no need to worry about formatting, the auto capitalise function takes care of that - add all images including header, logo and screenshots to ..assets/images.  Done! Here is a screenshot of the program running. The pro version will have multiple screenshots its a WIP.
+
+Tests
+
+if you want to test the app you could run the debugger via vscode - we havent covered official unit testing yet so I cannot really provide much info here.
+
+contributing:
+
+The project IS open source.  Feel free to clone and re-use or improve it, but please do respect the rules of my license and accredit your readme with my name and github username/url.
+
+username:
+         matt-jones-developer
+         
+repo: 
+
+https://github.com/Matt-Jones-Developer/speedme_ultimate_readme_generator
+
+deploy:
+
+https://matt-jones-developer.github.io/speedme_ultimate_readme_generator/
+
+linkedIN:
+
+https://www.linkedin.com/in/matt-jones-zx81
+
+slack:
+
+mattjones
+
+
+https://github.com/Matt-Jones-Developer/speedme_ultimate_readme_generator/

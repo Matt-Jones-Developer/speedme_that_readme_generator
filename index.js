@@ -3,6 +3,7 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 const util = require('util');
+const path = require('path');
 
 // Promisify the `fs.writeFile()` function
 const writeFileAsync = util.promisify(fs.writeFile);
@@ -13,7 +14,7 @@ async function run() {
     {
       type: 'list',
       name: 'setup',
-      message: '\n📟💬 Welcome to 💥TURBO README!💥\nThe Worlds most comprehensive README generator. 👋\n\n📟💬 Please select your type of readme:',
+      message: '\n📟💬 Welcome to 🔥 SPEEDME! 🔥 The Ultimate README generator. 👋\n\n📟💬 Please select your type of readme:',
       choices: ['Lightweight', 'Professional'],
       default: 'Lightweight'
     }
@@ -38,18 +39,19 @@ async function run() {
 const setupHeadings = async () => {
   // see index_pro_wip for code
   console.log("👻💬 Coming soon folks!")
-  console.log("Features:\n- Advanced headings selection\n- Merged headings & appended contents\n- html styling\n- screenshots and header/logo\n - more badges!\n - User Story with subheadings!\n - And mooooore!")
+  console.log("Features:\n- Advanced headings selection\n- Merged headings & appended contents\n- Mo HTML styling\n- Multiple screenshots and header logo\n- More (resized) badges\n- User Story adv. mode\n- Modularised scripts!\n- And mooooore!")
   return;
 }
 
 function capitalise(str) {
-  if(typeof str === 'string') {
+  if (typeof str === 'string') {
     return str[0].toUpperCase() + str.slice(1);
   }
   return str;
 }
 
 // a function that grabs the users pathname to fetch files from
+// this requires user to enter full path - WIP - need to re-think this 
 function getFilePath(answers) {
   const path = require('path');
   let filepath = answers.filepath; // '/Users/glitchy81/bootcamp/readme_builder/assets/images'
@@ -57,18 +59,88 @@ function getFilePath(answers) {
   // grab the filename
   let file = 'screenshot.png';
   // join the filepath and filename 
-  // let fullPath = `'.${filepath}/${file}'`
   let fullPath = `${filepath}/${file}`
-  console.log('fullpath:', fullPath)
-  // return `Screenshot filepath:, './'+${filepath}+${file}`
-  // return `![product screenshot](${fullPath})` // 
+  // console.log('fullpath:', fullPath)
   return `![Product Screenshot](${fullPath})`;
 }
 
+// a function to find any additional screenshots
+function findScreenshots() {
+  // import path
+  // const path = require('path');
+  // readdir requires user to enter full path - WIP - need to re-think this too
+  const pathToFiles = '../assets/images/'
+  // const pathToFiles = '/Users/glitchy81/bootcamp/readme_builder/assets/images'
+  // iterate 
+  fs.readdir(pathToFiles, function (err, files) {
+    // if not found - error
+    if (err) {
+      console.error("Could not find the directory.", err);
+      return;
+    }
+    // iterate
+    files.forEach(function (file, index) {
+      // join the path and each filename
+      let fromPath = path.join(pathToFiles, file);
+      console.log('found in path:', fromPath)
+      // append each found file
+      return `![Product Screenshot](${fromPath})`;
+    })
+  }
+
+  )
+};
+
+// html function - WIP
+function genTop() {
+  return `
+  <!-- Readme top-->
+  <a name="readme-top"></a>
+  `
+};
+
+function backToTop() {
+  return `
+  <p align="right">(<a href="#readme-top">back to top</a>)</p>
+  `
+};
+
+function genRepoMap(answers) {
+  // generates a repo map of various links to visit
+  return `
+  <div align="center">
+    <h3>"SPEEDME THAT README!"</h3>
+    <a href="${answers.github}/"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="${answers.github}/">View Project</a>
+    ·
+    <a href="${answers.github}/issues">Report Bug</a>
+    ·
+    <a href="${answers.github}/issues">Request Feature</a>
+    ·
+    <a href="https://github.com/${answers.username}?tab=repositories">Check out my work</a>
+    ·
+  </div>
+  <br>
+  `
+};
+
 // [TODO]: generate module script:
 
+function generateHeader() {
+
+  return `
+  <div align="center">
+  \t<img src="../assets/images/header.png" alt="header-image" width="800" height="200">
+  </div>
+  <br>
+  `
+
+}
+
 const generateToC = (headingsMVP) => {
-  console.log('are headingsMVP making toc:', headingsMVP);
+  // console.log('are headingsMVP making toc:', headingsMVP);
   return headingsMVP.map((heading) => {
     const anchor = heading.toLowerCase().replace(/ /g, '-');
     return `* [${heading}](#${anchor})`;
@@ -81,7 +153,7 @@ const generateLicenseSection = (license, chosenLicense) => {
     #
     ## License\n
     This project is licensed under the terms of the ${license} license.\n
-    For more information, please visit this link: ${chosenLicense}
+    For more information, please visit this link: [${license}](${chosenLicense})
   `;
 };
 
@@ -89,19 +161,31 @@ const generateLicenseSection = (license, chosenLicense) => {
 const generateBadgesSection = (answers, chosenBadge) => {
   // console.log('license chosen:', answers.license);
   // console.log('badge url chosen:', chosenBadge);
+  // license shield only
+  // return `
+  //   <div align="center">
+  //     \t<img src="${chosenBadge}" alt="license-badge-image">
+  //   </div>  
+  //   <br>
+  // `;
+  // add additional badges (for pro)
   return `
-    <div align="center">
-      \t<img src="${chosenBadge}" alt="license-badge-image">
-    </div>  
-    <br>
-  `;
-}
+  <span style="display:block" align="center" class="shields">
+
+  [![Stargazers][stars-shield]][stars-url]
+  [![Issues][issues-shield]][issues-url]
+  [![License][license-shield]][license-url]
+  [![LinkedIn][linkedin-shield]][linkedin-url]
+
+  </span>
+  `
+};
 
 const generateOpenSourceSection = (answers) => {
   // basic contribution notice (included)
   // if opensource (add covenant info)
-    return`
-    ## ${answers.title} is an Open Source Project:
+  return `
+    ## ${capitalise(answers.title)} is an Open Source Project:
     [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](code_of_conduct.md)\n
     ### Code of Conduct:
     Learn more about open source code of conduct:
@@ -111,7 +195,7 @@ const generateOpenSourceSection = (answers) => {
     ### Attribution
     Contributor Covenant is included in this open source project.  Read the [license.](https://github.com/EthicalSource/contributor_covenant/blob/release/LICENSE.md)
     `
-}
+};
 
 const generateQuestionsSection = (answers) => {
   // all contact methods
@@ -134,8 +218,34 @@ const generateQuestionsSection = (answers) => {
   ###  Other contacts:\n
   You can also reach me via the following: 👻💬\n
   📪 [Email](${answers.email}) · ${otherMethodsLinks} 
-  `;
-}
+  `
+};
+
+// pro feature: add all the markdown and badge links
+function hiddenMarkdown(answers, chosenBadge, chosenLicense) {
+  // console.log(`[stars-shield]: https://img.shields.io/github/stars/${answers.username}/${answers.title.toLowerCase().split(' ').join('_')}.svg?style=for-the-badge`)
+  return `
+  [stars-shield]: https://img.shields.io/github/stars/${answers.username}/${answers.title.toLowerCase().split(' ').join('_')}.svg?style=for-the-badge
+  [stars-url]: ${answers.github}/stargazer
+  [issues-shield]: https://img.shields.io/github/issues/${answers.username}/${answers.title.toLowerCase().split(' ').join('_')}.svg?style=for-the-badge
+  [issues-url]: ${answers.github}/issues
+  [license-shield]: ${chosenBadge}
+  [license-url]: ${chosenLicense}
+  [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+  [linkedin-url]: ${answers.linkedin}
+  `
+};
+
+function genProjectLinks(answers) {
+  return `
+
+  ## Deployment & Repo links:
+  
+  Project Repo Link: [${answers.github}](${answers.github})
+
+  Deployed Project Link: [${answers.github}](${answers.deploy})
+  `
+};
 
 // [TODO] setupReadme module (baseQuestions. licensing, MVP etc)
 
@@ -152,9 +262,9 @@ const setupReadme = async () => {
     'License',
     'Questions'
   ];
-  
-  console.log()
-  console.log('\n👻💬 MVP Headings are: ', headingsMVP)
+
+  console.log('\nAnswer the questions: (copy & paste from your fave text-editor for best results)\n')
+  // console.log('\n👻💬 MVP Headings are: ', headingsMVP)
 
   // define license and badges arrays and objects
   const licenses = [
@@ -191,10 +301,43 @@ const setupReadme = async () => {
     {
       type: 'input',
       name: 'description',
-      message: '📟💬 Summarise your project here: (Include a project "tagline" first):',
+      message: '📟💬 Descscribe your project here: (User Story sub-headings to follow):',
       validate: function (answer) {
         if (answer.length < 1) {
           return '❗ You must provide a summary.';
+        }
+        return true;
+      }
+    },
+    {
+      type: 'input',
+      name: 'motivation',
+      message: '📟💬 What was your motivation behind the project?',
+      validate: function (answer) {
+        if (answer.length < 1) {
+          return '❗ You must provide a motivation comment.';
+        }
+        return true;
+      }
+    },
+    {
+      type: 'input',
+      name: 'challenges',
+      message: '📟💬 What challenges did you face and overcome?',
+      validate: function (answer) {
+        if (answer.length < 1) {
+          return '❗ You must provide a challenges comment.';
+        }
+        return true;
+      }
+    },
+    {
+      type: 'input',
+      name: 'usps',
+      message: '📟💬 What are the Unique Selling Points of your final product?',
+      validate: function (answer) {
+        if (answer.length < 1) {
+          return '❗ You must provide a U.S.P comment.';
         }
         return true;
       }
@@ -284,10 +427,21 @@ const setupReadme = async () => {
     {
       type: 'input',
       name: 'github',
-      message: '📟💬 What is your github repo URL?',
+      message: '📟💬 What is your full github repo URL?',
       validate: function (answer) {
         if (answer.length < 1) {
           return '❗ You must provide a repo URL.';
+        }
+        return true;
+      }
+    },
+    {
+      type: 'input',
+      name: 'deploy',
+      message: '📟💬 What is the full deployment URL?',
+      validate: function (answer) {
+        if (answer.length < 1) {
+          return '❗ You must provide a deployment URL.';
         }
         return true;
       }
@@ -317,7 +471,14 @@ const setupReadme = async () => {
       message: '📟💬 Please select all available contact methods:',
       choices: [
         'LinkedIn', 'Twitter', 'Slack', 'Instagram'
-      ]
+      ],
+      default: 'LinkedIn',
+      validate: function (answer) {
+        if (!answer.includes('LinkedIn')) {
+          throw new Error('❗ You must select LinkedIn.');
+        }
+        return true;
+      }
     },
     // once contact methods selected, prompt:
     {
@@ -349,6 +510,13 @@ const setupReadme = async () => {
       message: '📟💬 Enter your Instagram username:',
       when: (answers) => answers.methods.includes('Instagram')
     },
+    {
+      type: 'list',
+      name: 'header',
+      message: '📟💬 Have you added a project header image? (make sure you add a header.png to assets/images!)',
+      choices: ['yes', 'no'],
+      default: 'yes'
+    },
 
   ];
 
@@ -364,12 +532,12 @@ const setupReadme = async () => {
   const chosenBadge = licenseBadges[answers.license];
   // console.log('chosen badge url to match:', chosenBadge)
 
-  console.log('\n📟💬 You chose License:', answers.license)
+  console.log('\n📟💬 You chose License:', answers.license);
 
   // Lightweight readme done - time to write it
   generateAndWriteReadme(headingsMVP, answers, chosenLicense, chosenBadge);
 
-}
+};
 
 // [TODO] output module (the file writing module)
 
@@ -401,13 +569,13 @@ async function generateAndWriteReadme(headingsMVP, answers, chosenLicense, chose
 
     // confirmation 
     console.log('\n💥WOOHOO!💥');
-    console.log('📟💬 Your README.md file was created! 🎉🎉\n');
+    console.log('📟💬 SPEED_ME created your README! 🎉🎉\n');
     console.log('📟💬 You can access it via the "output" folder within this repo.\nIf you enjoyed using this program, please let me know!\n');
     console.log('📟💬 This program will now terminate: GOOD DAY!\n')
   } catch (error) {
     console.error('❗ Error generating or writing README.md file:', error);
   }
-}
+};
 
 // [TODO] The generateMarkdown module - must add finalAnswers/proAnswers
 
@@ -419,8 +587,12 @@ const generateMarkdown = ({ headingsMVP, answers, chosenLicense, chosenBadge }) 
   // open source section
   if (answers.opensource === 'yes') {
     openSource = `
-    ${ generateOpenSourceSection(answers) };
+    ${generateOpenSourceSection(answers)};
     `
+  }
+  let includeHeader = '';
+  if (answers.header === 'yes') {
+    includeHeader = `${generateHeader()}`
   }
   // usageScreenshot = '';
   // if (answers.screenshot === 'yes') {
@@ -429,27 +601,45 @@ const generateMarkdown = ({ headingsMVP, answers, chosenLicense, chosenBadge }) 
   //   // console.log(answers.screenshot, usageScreenshot)
   // }
 
-  screenshot = '';
+  let screenshot = '';
+  let addScreenshots = '';
   if (answers.screenshot === 'yes') {
     screenshot = `
     ![Product Screenshot](../assets/images/screenshot.png)`;
     // console.log(answers.screenshot, usageScreenshot)
+
+    // a function call that adds multiple screenshots here - based iterating through *.png's in folder
+    // addScreenshots = `
+    // ${ findScreenshots() }
+    // `
+    // console.log(addScreenshots) // undefined WIP
   }
 
   // if file path contains filename ?
 
   return `
+    ${genTop()}
     ${generateBadgesSection(answers, chosenBadge)}
+    ${includeHeader}
 
     # ${answers.title.split(' ').map(capitalise).join(' ')}
-
-    ## Project Summary\n
-    ${capitalise(answers.description)}\n
-    #
+    ${genRepoMap(answers)}
 
     ## Table of Contents\n
     ${tocSection.replace(/\n/g, '\n  ')}
     #
+
+    ## Project Summary\n
+    ${capitalise(answers.description)}\n
+    ### Motivation
+    ${capitalise(answers.motivation)}\n
+    ### Challenges
+    ${capitalise(answers.challenges)}\n
+    ### Unique Selling Points
+    ${capitalise(answers.usps)}\n
+    #
+
+    ${backToTop()}
 
     ## Installation\n
     ${capitalise(answers.installation)}\n
@@ -463,12 +653,20 @@ const generateMarkdown = ({ headingsMVP, answers, chosenLicense, chosenBadge }) 
 
     ## Contributing\n
     ${capitalise(answers.contributing)}\n
+
+    ${backToTop()}
     
     ${openSource}
 
     ${generateLicenseSection(answers.license, chosenLicense)}
 
     ${generateQuestionsSection(answers)}
+
+    ${hiddenMarkdown(answers, chosenBadge, chosenLicense)}
+
+    ${backToTop()}
+
+    ${genProjectLinks(answers)}
     
   `.replace(/^ +/gm, '');
 };
