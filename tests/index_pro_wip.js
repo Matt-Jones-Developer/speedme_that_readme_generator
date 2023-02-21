@@ -56,6 +56,7 @@ const setupHeadings = async () => {
     'UX/UI Design',
     'Roadmap',
     'Tests',
+    'Credits',
     'Contributing',
     'Project Links',
     'License',
@@ -102,6 +103,7 @@ const setupHeadings = async () => {
     design: '',
     roadmap: '',
     tests: '',
+    credits:'',
     team: '',
     links: '',
   };
@@ -196,7 +198,7 @@ const setupHeadings = async () => {
     proAnswers.usage = await inquirer.prompt([{
       type: 'input',
       name: 'usage',
-      message: '📟💬 Explain some example usages of the app:',
+      message: '📟💬 Explain some instruction and example usage screenshot of the app: (upload a screenshot.png to assets/images)',
       validate: (input) => input !== '' || '❗ You must provide some usage examples or N/A.',
     }]);
   }
@@ -204,8 +206,8 @@ const setupHeadings = async () => {
     proAnswers.design = await inquirer.prompt([{
       type: 'input',
       name: 'design',
-      message: '📟💬 Provide insight into your design process.  Include UX and UI concepts:',
-      validate: (input) => input !== '' || '❗ You must provide some design notes ([TODO]: add screenshots path).',
+      message: '📟💬 Provide insight into your design process.  Include UX and UI concepts: (upload wireframe.png to assets/images)',
+      validate: (input) => input !== '' || '❗ You must provide some design notes',
     }]);
   }
   if (headings.includes('Roadmap')) {

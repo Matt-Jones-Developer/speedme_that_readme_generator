@@ -42,6 +42,28 @@ const setupHeadings = async () => {
   return;
 }
 
+function capitalise(str) {
+  if(typeof str === 'string') {
+    return str[0].toUpperCase() + str.slice(1);
+  }
+  return str;
+}
+
+// a function that grabs the users pathname to fetch files from
+function getFilePath(answers) {
+  const path = require('path');
+  let filepath = answers.filepath; // '/Users/glitchy81/bootcamp/readme_builder/assets/images'
+  console.log('filepath:', filepath)
+  // grab the filename
+  let file = 'screenshot.png';
+  // join the filepath and filename 
+  // let fullPath = `'.${filepath}/${file}'`
+  let fullPath = `${filepath}/${file}`
+  console.log('fullpath:', fullPath)
+  // return `Screenshot filepath:, './'+${filepath}+${file}`
+  // return `![product screenshot](${fullPath})` // 
+  return `![Product Screenshot](${fullPath})`;
+}
 
 // [TODO]: generate module script:
 
@@ -63,7 +85,7 @@ const generateLicenseSection = (license, chosenLicense) => {
   `;
 };
 
-// generate badge at top of readme  - answers must be included here for badge to render? 
+// generate badge at top of readme  - answers must be included here for badge to render 
 const generateBadgesSection = (answers, chosenBadge) => {
   // console.log('license chosen:', answers.license);
   // console.log('badge url chosen:', chosenBadge);
@@ -73,6 +95,22 @@ const generateBadgesSection = (answers, chosenBadge) => {
     </div>  
     <br>
   `;
+}
+
+const generateOpenSourceSection = (answers) => {
+  // basic contribution notice (included)
+  // if opensource (add covenant info)
+    return`
+    ## ${answers.title} is an Open Source Project:
+    [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](code_of_conduct.md)\n
+    ### Code of Conduct:
+    Learn more about open source code of conduct:
+    [Contributor Covenant](https://www.contributor-covenant.org/)\n
+    Read the full code of conduct here:
+    [English (HTML version)](https://www.contributor-covenant.org/version/2/1/code_of_conduct/)\n
+    ### Attribution
+    Contributor Covenant is included in this open source project.  Read the [license.](https://github.com/EthicalSource/contributor_covenant/blob/release/LICENSE.md)
+    `
 }
 
 const generateQuestionsSection = (answers) => {
@@ -164,7 +202,7 @@ const setupReadme = async () => {
     {
       type: 'input',
       name: 'installation',
-      message: '📟💬 Please offer instructions on how to install the app, if required (or N/A):',
+      message: '📟💬 Please offer installation instructions, including any required dependencies:',
       validate: function (answer) {
         if (answer.length < 1) {
           return '❗ You must provide instructions.';
@@ -175,7 +213,37 @@ const setupReadme = async () => {
     {
       type: 'input',
       name: 'usage',
-      message: '📟💬 Explain some example usages of the app:',
+      message: '📟💬 Provide some features and examples of usage of the app:',
+      validate: function (answer) {
+        if (answer.length < 1) {
+          return '❗ You must provide usage notes.';
+        }
+        return true;
+      }
+    },
+    {
+      type: 'list',
+      name: 'screenshot',
+      message: '📟💬 Do you want to include a screenshot.png? It must be placed inside assets/images folder.',
+      choices: ['yes', 'no'],
+      default: 'yes'
+    },
+    // {
+    //   type: 'input',
+    //   name: 'filepath',
+    //   message: '📟💬 Copy & paste the full pathname to your images folder "<fullpathname>" (Add a screenshot.png within assets/images folder):',
+    //   when: (answers) => answers.screenshot.includes('yes'),
+    //   validate: function (value) {
+    //     // Check if the input is a valid filepath
+    //     const valid = value.startsWith('/Users');
+    //     return valid || 'Please enter a valid filepath starting with "Users/"';
+    //     // 
+    //   },
+    // },
+    {
+      type: 'input',
+      name: 'tests',
+      message: '📟💬 Explain what testing has been done and how you can run tests on the app:',
       validate: function (answer) {
         if (answer.length < 1) {
           return '❗ You must provide usage notes.';
@@ -186,13 +254,21 @@ const setupReadme = async () => {
     {
       type: 'input',
       name: 'contributing',
-      message: '📟💬 Explain how others can contribute to this project.  Who else contributed to this project? Provide names and github userID or links if applicable:',
+      message: '📟💬 Explain how others can contribute to this project.',
+      // when: (answers) => answers.opensource.includes('yes'),
       validate: function (answer) {
         if (answer.length < 1) {
-          return '❗ You must provide usage notes.';
+          return '❗ You must provide a note on contributing.';
         }
         return true;
       }
+    },
+    {
+      type: 'list',
+      name: 'opensource',
+      message: '📟💬 Is the project Open Source? (The open source Contributor Convent guides and license will be added automatically)',
+      choices: ['yes', 'no'],
+      default: 'no'
     },
     {
       type: 'input',
@@ -336,17 +412,39 @@ async function generateAndWriteReadme(headingsMVP, answers, chosenLicense, chose
 // [TODO] The generateMarkdown module - must add finalAnswers/proAnswers
 
 const generateMarkdown = ({ headingsMVP, answers, chosenLicense, chosenBadge }) => { // chosenHeadings = [], finalAnswers = {} 
-
+  // console.log('opensource?: ',answers.opensource)
   // for MVP
   let tocSection = generateToC(headingsMVP);
+  let openSource = '';
+  // open source section
+  if (answers.opensource === 'yes') {
+    openSource = `
+    ${ generateOpenSourceSection(answers) };
+    `
+  }
+  // usageScreenshot = '';
+  // if (answers.screenshot === 'yes') {
+  //   usageScreenshot = `
+  //   // ${ getFilePath(answers) }`;
+  //   // console.log(answers.screenshot, usageScreenshot)
+  // }
+
+  screenshot = '';
+  if (answers.screenshot === 'yes') {
+    screenshot = `
+    ![Product Screenshot](../assets/images/screenshot.png)`;
+    // console.log(answers.screenshot, usageScreenshot)
+  }
+
+  // if file path contains filename ?
 
   return `
     ${generateBadgesSection(answers, chosenBadge)}
 
-    # ${answers.title}
+    # ${answers.title.split(' ').map(capitalise).join(' ')}
 
     ## Project Summary\n
-    ${answers.description}\n
+    ${capitalise(answers.description)}\n
     #
 
     ## Table of Contents\n
@@ -354,13 +452,19 @@ const generateMarkdown = ({ headingsMVP, answers, chosenLicense, chosenBadge }) 
     #
 
     ## Installation\n
-    ${answers.installation}\n
+    ${capitalise(answers.installation)}\n
+
     ## Usage\n
-    ${answers.usage}\n
+    ${capitalise(answers.usage)}\n
+    ${screenshot}
+    
     ## Tests\n
-    ${answers.tests}\n
+    ${capitalise(answers.tests)}\n
+
     ## Contributing\n
-    ${answers.contributing}\n
+    ${capitalise(answers.contributing)}\n
+    
+    ${openSource}
 
     ${generateLicenseSection(answers.license, chosenLicense)}
 
