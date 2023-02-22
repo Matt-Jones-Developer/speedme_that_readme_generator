@@ -164,7 +164,7 @@ Deployed Project Link: [https://github.com/Matt-Jones-Developer/speedme_that_rea
 ## The VIDEO LINK
 
 See the app being fully tested here: 
-[Video Link](https://drive.google.com/file/d/1CMJ1AhnZMRsrCtINm3QWc2aCzDwLnRdy/view?usp=sharing)
+[Video Link](https://drive.google.com/file/d/18YRV4kcDTStXWrWC4yXjjdMrEfbJYqaE/view?usp=sharing)
 
 See the finished readme being demonstrated here: 
 [Video Link](https://drive.google.com/file/d/1CMJ1AhnZMRsrCtINm3QWc2aCzDwLnRdy/view?usp=sharing)
