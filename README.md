@@ -22,7 +22,7 @@
 <br>
 
 
-# SPEEDME that README generator
+# SPEEDME: The Ultimate Professional README.md generator
 
 
 <div align="center">
